@@ -47,4 +47,17 @@ describe('teams', () => {
             });
     });
 
+    it('updates a team division', () => {
+        Arizona.division = 'NFC North';
+        return chai.request(app)
+            .put(`/teams/${Arizona._id}`)
+            .send(Arizona)
+            .then(() => {
+                return chai.request(app)
+                    .get(`/teams/${Arizona._id}`)
+                    .then(({ body }) => {
+                        assert.deepEqual(body, Arizona);
+                    });
+            });
+    });
 });
