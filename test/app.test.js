@@ -38,4 +38,13 @@ describe('teams', () => {
     it('adds a team', () => {
         assert.ok(Arizona._id);
     });
+
+    it('gets team by id', () => {
+        return chai.request(app)
+            .get(`/teams/${Arizona._id}`)
+            .then(({ body }) => {
+                assert.deepEqual(body, Arizona);
+            });
+    });
+
 });
