@@ -74,4 +74,16 @@ describe('teams', () => {
                     });
             });
     });
+
+    it('deletes team with an id', () => {
+        return chai.request(app)
+            .delete(`/teams/${Carolina._id}`)
+            .then(() => {
+                return chai.request(app)
+                    .get('/teams')
+                    .then(({ body }) => {
+                        assert.deepEqual(body, [Arizona]);
+                    });
+            });
+    });
 });
