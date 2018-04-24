@@ -21,10 +21,10 @@ describe('teams', () => {
         division: 'NFC West'
     };
 
-    // let Carolina = {
-    //     name: 'Panthers',
-    //     division: 'NFC South'
-    // };
+    let Carolina = {
+        name: 'Panthers',
+        division: 'NFC South'
+    };
 
     before(() => {
         return chai.request(app)
@@ -57,6 +57,20 @@ describe('teams', () => {
                     .get(`/teams/${Arizona._id}`)
                     .then(({ body }) => {
                         assert.deepEqual(body, Arizona);
+                    });
+            });
+    });
+
+    it('gets all the teams', () => {
+        return chai.request(app)
+            .post('/teams')
+            .send(Carolina)
+            .then(({ body }) => {
+                Carolina = body;
+                return chai.request(app)
+                    .get('/teams')
+                    .then(({ body }) => {
+                        assert.deepEqual(body, [Arizona, Carolina]);
                     });
             });
     });
